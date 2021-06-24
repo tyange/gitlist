@@ -1,0 +1,14 @@
+header {
+  display: flex;
+}
+
+.doorknob {
+}
+
+.menus ul {
+  display: flex;
+}
+
+.menus ul li:not(:last-child) {
+  margin-right: 15px;
+}
