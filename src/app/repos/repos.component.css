@@ -1,0 +1,23 @@
+.repos-container {
+  flex-direction: column;
+}
+
+.repos-wrapper {
+  width: 500px;
+  height: 50%;
+  overflow: auto;
+  border: 1px solid red;
+}
+
+.repos-wrapper li {
+  width: 90%;
+  height: 50px;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.repos-wrapper li:not(:last-child) {
+  margin-bottom: 10px;
+}

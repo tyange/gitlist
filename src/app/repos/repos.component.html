@@ -1,1 +1,12 @@
-<h1>repos!</h1>
+<div class="container repos-container">
+  <app-repo-list></app-repo-list>
+  <div class="repos-wrapper">
+    <ul>
+      <li draggable="true" *ngFor="let repo of repos.items">
+        <span>
+          {{ repo.name }}
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
