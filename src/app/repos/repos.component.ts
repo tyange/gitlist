@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Octokit } from '@octokit/core';
+import { ReposService } from './repos.service';
 
 @Component({
   selector: 'app-repos',
@@ -17,6 +18,8 @@ export class ReposComponent implements OnInit {
   };
 
   octokit = new Octokit();
+
+  constructor(public reposService: ReposService) {}
 
   ngOnInit() {
     this.octokit
@@ -36,5 +39,17 @@ export class ReposComponent implements OnInit {
         });
         this.repos.items = arr;
       });
+  }
+
+  onDragStart(id: number, name: string) {
+    this.reposService.repoDragStart(id, name);
+  }
+
+  onDragEnd() {
+    this.reposService.repoDragEnd();
+  }
+
+  onDragOver() {
+    this.reposService.repoDragOver();
   }
 }

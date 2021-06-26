@@ -21,3 +21,9 @@
 .repos-wrapper li:not(:last-child) {
   margin-bottom: 10px;
 }
+
+.dragover-test {
+  width: 300px;
+  height: 100px;
+  border: 1px solid #ccc;
+}

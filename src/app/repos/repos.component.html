@@ -2,7 +2,11 @@
   <app-repo-list></app-repo-list>
   <div class="repos-wrapper">
     <ul>
-      <li draggable="true" *ngFor="let repo of repos.items">
+      <li
+        draggable="true"
+        *ngFor="let repo of repos.items"
+        (dragstart)="onDragStart(repo.id, repo.name)"
+      >
         <span>
           {{ repo.name }}
         </span>

@@ -1,4 +1,10 @@
 <div>
   <span>making new list!</span>
 </div>
-<div class="repo-list"></div>
+<div class="repo-list" (dragover)="onDragOver($event)" (drop)="onDrop()">
+  <ul>
+    <li *ngFor="let newRepo of newRepos">
+      {{ newRepo.name }}
+    </li>
+  </ul>
+</div>
