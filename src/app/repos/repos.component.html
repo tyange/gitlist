@@ -6,6 +6,7 @@
         draggable="true"
         *ngFor="let repo of repos.items"
         (dragstart)="onDragStart(repo.id, repo.name)"
+        (dragend)="onDragEnd()"
       >
         <span>
           {{ repo.name }}

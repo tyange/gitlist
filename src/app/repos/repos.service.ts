@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ReposService {
+  droped: boolean = false;
   draggingRepo: { id: number; name: string } = {
     id: 0,
     name: '',
@@ -15,9 +16,11 @@ export class ReposService {
     };
   }
 
-  repoDragEnd() {}
-
-  repoDragOver() {
+  getDragItem() {
     return this.draggingRepo;
+  }
+
+  draggingItemDroped() {
+    this.droped = true;
   }
 }

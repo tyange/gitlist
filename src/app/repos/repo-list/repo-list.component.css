@@ -5,3 +5,16 @@
   border: 1px solid #ccc;
   margin-bottom: 100px;
 }
+
+.repo-list ul li {
+  width: 90%;
+  height: 50px;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.repo-list ul li:not(:last-child) {
+  margin-bottom: 10px;
+}

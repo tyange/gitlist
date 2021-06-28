@@ -1,10 +1,17 @@
 <div>
   <span>making new list!</span>
 </div>
-<div class="repo-list" (dragover)="onDragOver($event)" (drop)="onDrop()">
+<div
+  class="repo-list"
+  (dragenter)="onDragEnter($event)"
+  (dragover)="onDragOver($event)"
+  (drop)="onDrop()"
+>
   <ul>
-    <li *ngFor="let newRepo of newRepos">
-      {{ newRepo.name }}
+    <li *ngFor="let newRepo of newRepos" draggable="true">
+      <span>
+        {{ newRepo.name }}
+      </span>
     </li>
   </ul>
 </div>

@@ -11,17 +11,19 @@ export class RepoListComponent {
 
   constructor(public reposService: ReposService) {}
 
+  onDragEnter(event: any) {
+    event.preventDefault();
+  }
+
   onDragOver(event: any) {
     event.preventDefault();
   }
 
   onDrop() {
-    const draggingRepo = this.reposService.repoDragOver();
+    const draggingRepo = this.reposService.getDragItem();
 
-    const updatedRepos = this.newRepos.splice(
-      this.newRepos.length,
-      0,
-      draggingRepo
-    );
+    this.newRepos.splice(this.newRepos.length, 0, draggingRepo);
+
+    this.reposService.draggingItemDroped();
   }
 }

@@ -18,7 +18,8 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "lodash"
+              "before-after-hook",
+              "once"
            ],
             "outputPath": "dist/gitlist",
             "index": "src/index.html",

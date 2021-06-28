@@ -9,7 +9,7 @@
   border: 1px solid red;
 }
 
-.repos-wrapper li {
+.repos-wrapper ul li {
   width: 90%;
   height: 50px;
   border: 1px solid #ccc;
@@ -18,7 +18,7 @@
   justify-content: center;
 }
 
-.repos-wrapper li:not(:last-child) {
+.repos-wrapper ul li:not(:last-child) {
   margin-bottom: 10px;
 }
 

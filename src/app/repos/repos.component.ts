@@ -46,10 +46,13 @@ export class ReposComponent implements OnInit {
   }
 
   onDragEnd() {
-    this.reposService.repoDragEnd();
-  }
+    if (this.reposService.droped === true) {
+      const draggedItem = this.reposService.getDragItem();
+      const currentRepos = this.repos.items;
 
-  onDragOver() {
-    this.reposService.repoDragOver();
+      this.repos.items = currentRepos.filter(
+        (repo) => repo.id !== draggedItem.id
+      );
+    }
   }
 }
