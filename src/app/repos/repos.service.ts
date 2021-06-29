@@ -20,6 +20,10 @@ export class ReposService {
     return this.draggingRepo;
   }
 
+  draggingStart() {
+    this.droped = false;
+  }
+
   draggingItemDroped() {
     this.droped = true;
   }

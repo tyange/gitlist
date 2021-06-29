@@ -3,8 +3,12 @@
   <div class="repos-wrapper">
     <ul>
       <li
-        draggable="true"
         *ngFor="let repo of repos.items"
+        class="repository"
+        [ngClass]="{
+          'dragging-item': dragging && draggingStyle(repo.id, repo.name)
+        }"
+        draggable="true"
         (dragstart)="onDragStart(repo.id, repo.name)"
         (dragend)="onDragEnd()"
       >

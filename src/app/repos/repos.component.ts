@@ -9,6 +9,7 @@ import { ReposService } from './repos.service';
   styleUrls: ['./repos.component.css'],
 })
 export class ReposComponent implements OnInit {
+  dragging: boolean = false;
   repos: {
     drawer: string;
     items: Array<{ id: number; name: string; url: string }>;
@@ -42,7 +43,18 @@ export class ReposComponent implements OnInit {
   }
 
   onDragStart(id: number, name: string) {
+    this.reposService.draggingStart();
     this.reposService.repoDragStart(id, name);
+    this.dragging = true;
+  }
+
+  draggingStyle(id: number, name: string) {
+    const draggingRepos = this.reposService.draggingRepo;
+    if (draggingRepos.id === id && draggingRepos.name === name) {
+      return true;
+    }
+
+    return false;
   }
 
   onDragEnd() {
@@ -54,5 +66,7 @@ export class ReposComponent implements OnInit {
         (repo) => repo.id !== draggedItem.id
       );
     }
+
+    this.dragging = false;
   }
 }

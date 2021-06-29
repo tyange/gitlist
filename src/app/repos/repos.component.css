@@ -9,7 +9,7 @@
   border: 1px solid red;
 }
 
-.repos-wrapper ul li {
+.repository {
   width: 90%;
   height: 50px;
   border: 1px solid #ccc;
@@ -18,8 +18,12 @@
   justify-content: center;
 }
 
-.repos-wrapper ul li:not(:last-child) {
+.repository:not(:last-child) {
   margin-bottom: 10px;
+}
+
+.dragging-item {
+  background-color: #999;
 }
 
 .dragover-test {
