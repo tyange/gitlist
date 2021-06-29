@@ -10,6 +10,7 @@
         }"
         draggable="true"
         (dragstart)="onDragStart(repo.id, repo.name)"
+        (dragenter)="onDragEnter($event, repo.id, repo.name)"
         (dragend)="onDragEnd()"
       >
         <span>

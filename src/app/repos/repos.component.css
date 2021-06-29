@@ -23,6 +23,7 @@
 }
 
 .dragging-item {
+  color: #999;
   background-color: #999;
 }
 

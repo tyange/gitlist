@@ -43,9 +43,11 @@ export class ReposComponent implements OnInit {
   }
 
   onDragStart(id: number, name: string) {
-    this.reposService.draggingStart();
+    this.reposService.dragginginitialize();
     this.reposService.repoDragStart(id, name);
-    this.dragging = true;
+    setTimeout(() => {
+      this.dragging = true;
+    }, 0);
   }
 
   draggingStyle(id: number, name: string) {
@@ -55,6 +57,17 @@ export class ReposComponent implements OnInit {
     }
 
     return false;
+  }
+
+  onDragEnter(event: any, id: number, name: string) {
+    event.preventDefault();
+    const draggingItem = this.reposService.draggingRepo;
+    if (draggingItem.id !== id && draggingItem.name !== name) {
+      let newRepos = [...this.repos.items];
+      newRepos.splice(id, 0, newRepos.splice(draggingItem.id, 1)[0]);
+
+      this.repos.items = newRepos;
+    }
   }
 
   onDragEnd() {

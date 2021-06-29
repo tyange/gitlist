@@ -24,6 +24,6 @@ export class RepoListComponent {
 
     this.newRepos.splice(this.newRepos.length, 0, draggingRepo);
 
-    this.reposService.draggingItemDroped();
+    this.reposService.dropedInList();
   }
 }
