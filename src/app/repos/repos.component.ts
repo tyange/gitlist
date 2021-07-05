@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Octokit } from '@octokit/core';
-import { ReposService } from './repos.service';
+// import { ReposService } from './repos.service';
+import { DragDropService } from '../shared/drag-drop.service';
 
 @Component({
   selector: 'app-repos',
@@ -9,10 +10,9 @@ import { ReposService } from './repos.service';
   styleUrls: ['./repos.component.css'],
 })
 export class ReposComponent implements OnInit {
-  dragging: boolean = false;
   repos: {
     drawer: string;
-    items: Array<{ id: number; name: string; url: string }>;
+    items: Array<{ id: string; name: string; url: string }>;
   } = {
     drawer: 'repos',
     items: [],
@@ -20,7 +20,7 @@ export class ReposComponent implements OnInit {
 
   octokit = new Octokit();
 
-  constructor(public reposService: ReposService) {}
+  constructor(public dragDropService: DragDropService) {}
 
   ngOnInit() {
     this.octokit
@@ -29,8 +29,8 @@ export class ReposComponent implements OnInit {
         per_page: 100,
       })
       .then((response) => {
-        let arr: Array<{ id: number; name: string; url: string }> = [];
-        response.data.map((responseData: any, index: number) => {
+        let arr: Array<{ id: string; name: string; url: string }> = [];
+        response.data.map((responseData: any, index: string) => {
           const repository = {
             id: index,
             name: responseData.name,
@@ -42,44 +42,25 @@ export class ReposComponent implements OnInit {
       });
   }
 
-  onDragStart(id: number, name: string) {
-    this.reposService.dragginginitialize();
-    this.reposService.repoDragStart(id, name);
-    setTimeout(() => {
-      this.dragging = true;
-    }, 0);
+  onDragStart(
+    event: any,
+    index: number,
+    id: string,
+    name: string,
+    url: string
+  ) {
+    this.dragDropService.dragStart(event, index, id, name, url);
   }
 
-  draggingStyle(id: number, name: string) {
-    const draggingRepos = this.reposService.draggingRepo;
-    if (draggingRepos.id === id && draggingRepos.name === name) {
-      return true;
-    }
-
-    return false;
+  onDragEnter(event: any, arr: Array<{}>, index: number, name: string) {
+    this.dragDropService.dragEnter(event, arr, index, name);
   }
 
-  onDragEnter(event: any, id: number, name: string) {
-    event.preventDefault();
-    const draggingItem = this.reposService.draggingRepo;
-    if (draggingItem.id !== id && draggingItem.name !== name) {
-      let newRepos = [...this.repos.items];
-      newRepos.splice(id, 0, newRepos.splice(draggingItem.id, 1)[0]);
-
-      this.repos.items = newRepos;
-    }
+  onDragEnd(arr: Array<{ id: string; name: string; url: string }>) {
+    this.dragDropService.dragEnd(arr);
   }
 
-  onDragEnd() {
-    if (this.reposService.droped === true) {
-      const draggedItem = this.reposService.getDragItem();
-      const currentRepos = this.repos.items;
-
-      this.repos.items = currentRepos.filter(
-        (repo) => repo.id !== draggedItem.id
-      );
-    }
-
-    this.dragging = false;
+  logging() {
+    console.log(this.repos.items);
   }
 }

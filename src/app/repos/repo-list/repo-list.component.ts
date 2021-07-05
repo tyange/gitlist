@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ReposService } from '../repos.service';
+
+import { DragDropService } from 'src/app/shared/drag-drop.service';
 
 @Component({
   selector: 'app-repo-list',
@@ -7,23 +8,41 @@ import { ReposService } from '../repos.service';
   styleUrls: ['./repo-list.component.css'],
 })
 export class RepoListComponent {
-  newRepos: Array<{ id: number; name: string }> = [];
+  draggingInNewRepos: boolean = false;
+  newRepos: Array<{ id: string; name: string; url: string }> = [];
 
-  constructor(public reposService: ReposService) {}
+  constructor(public dragDropService: DragDropService) {}
 
-  onDragEnter(event: any) {
+  onDivDragEnter(event: any) {
     event.preventDefault();
   }
 
-  onDragOver(event: any) {
+  onDivDragOver(event: any) {
     event.preventDefault();
   }
 
-  onDrop() {
-    const draggingRepo = this.reposService.getDragItem();
+  onDrop(arr: Array<{}>) {
+    this.dragDropService.dragDrop(arr);
+  }
 
-    this.newRepos.splice(this.newRepos.length, 0, draggingRepo);
+  onDragStart(
+    event: any,
+    index: number,
+    id: string,
+    name: string,
+    url: string
+  ) {
+    this.draggingInNewRepos = true;
+    this.dragDropService.dragStart(event, index, id, name, url);
+  }
 
-    this.reposService.dropedInList();
+  onDragEnter(event: any, arr: Array<{}>, index: number, name: string) {
+    event.preventDefault();
+    this.dragDropService.dragEnter(event, arr, index, name);
+  }
+
+  onDragEnd(arr: Array<{ id: string; name: string; url: string }>) {
+    this.dragDropService.dragEnd(arr);
+    this.draggingInNewRepos = false;
   }
 }

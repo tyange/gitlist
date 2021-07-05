@@ -3,12 +3,22 @@
 </div>
 <div
   class="repo-list"
-  (dragenter)="onDragEnter($event)"
-  (dragover)="onDragOver($event)"
-  (drop)="onDrop()"
+  (dragenter)="onDivDragEnter($event)"
+  (dragover)="onDivDragOver($event)"
+  (drop)="!draggingInNewRepos && onDrop(newRepos)"
 >
   <ul>
-    <li *ngFor="let newRepo of newRepos" draggable="true">
+    <li
+      *ngFor="let newRepo of newRepos; index as i"
+      draggable="true"
+      (dragstart)="
+        onDragStart($event, i, newRepo.id, newRepo.name, newRepo.url)
+      "
+      (dragenter)="
+        draggingInNewRepos && onDragEnter($event, newRepos, i, newRepo.name)
+      "
+      (dragend)="draggingInNewRepos && onDragEnd(newRepos)"
+    >
       <span>
         {{ newRepo.name }}
       </span>

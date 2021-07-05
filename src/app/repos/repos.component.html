@@ -1,17 +1,15 @@
 <div class="container repos-container">
   <app-repo-list></app-repo-list>
   <div class="repos-wrapper">
+    <button (click)="logging()">logging</button>
     <ul>
       <li
-        *ngFor="let repo of repos.items"
+        *ngFor="let repo of repos.items; index as i"
         class="repository"
-        [ngClass]="{
-          'dragging-item': dragging && draggingStyle(repo.id, repo.name)
-        }"
         draggable="true"
-        (dragstart)="onDragStart(repo.id, repo.name)"
-        (dragenter)="onDragEnter($event, repo.id, repo.name)"
-        (dragend)="onDragEnd()"
+        (dragstart)="onDragStart($event, i, repo.id, repo.name, repo.url)"
+        (dragenter)="onDragEnter($event, repos.items, i, repo.name)"
+        (dragend)="onDragEnd(repos.items)"
       >
         <span>
           {{ repo.name }}
