@@ -5,14 +5,22 @@
   class="repo-list"
   (dragenter)="onDivDragEnter($event)"
   (dragover)="onDivDragOver($event)"
-  (drop)="!draggingInNewRepos && onDrop(newRepos)"
+  (drop)="!draggingInNewRepos && onDrop(newRepos, location)"
 >
+  <button (click)="logging()">logging</button>
   <ul>
     <li
       *ngFor="let newRepo of newRepos; index as i"
       draggable="true"
       (dragstart)="
-        onDragStart($event, i, newRepo.id, newRepo.name, newRepo.url)
+        onDragStart(
+          $event,
+          i,
+          newRepo.id,
+          newRepo.name,
+          newRepo.url,
+          newRepo.location
+        )
       "
       (dragenter)="
         draggingInNewRepos && onDragEnter($event, newRepos, i, newRepo.name)

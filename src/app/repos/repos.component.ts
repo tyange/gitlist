@@ -10,9 +10,11 @@ import { DragDropService } from '../shared/drag-drop.service';
   styleUrls: ['./repos.component.css'],
 })
 export class ReposComponent implements OnInit {
+  draggingInRepos: boolean = false;
+  location: string = 'repos';
   repos: {
     drawer: string;
-    items: Array<{ id: string; name: string; url: string }>;
+    items: Array<{ id: string; name: string; url: string; location: string }>;
   } = {
     drawer: 'repos',
     items: [],
@@ -29,12 +31,18 @@ export class ReposComponent implements OnInit {
         per_page: 100,
       })
       .then((response) => {
-        let arr: Array<{ id: string; name: string; url: string }> = [];
+        let arr: Array<{
+          id: string;
+          name: string;
+          url: string;
+          location: string;
+        }> = [];
         response.data.map((responseData: any, index: string) => {
           const repository = {
             id: index,
             name: responseData.name,
             url: responseData.html_url,
+            location: 'repos',
           };
           arr.push(repository);
         });
@@ -42,25 +50,45 @@ export class ReposComponent implements OnInit {
       });
   }
 
+  onDivDragEnter(event: any) {
+    event.preventDefault();
+  }
+
+  onDivDragOver(event: any) {
+    event.preventDefault();
+    const draggingRepo = this.dragDropService.getDraggingRepo();
+    if (draggingRepo.location === this.location) {
+      this.draggingInRepos = true;
+    } else if (draggingRepo.location !== this.location) {
+      this.draggingInRepos = false;
+    }
+  }
+
+  onDrop(arr: Array<{}>, location: string) {
+    this.dragDropService.dragDrop(arr, location);
+  }
+
   onDragStart(
     event: any,
     index: number,
     id: string,
     name: string,
-    url: string
+    url: string,
+    location: string
   ) {
-    this.dragDropService.dragStart(event, index, id, name, url);
+    this.dragDropService.dragStart(event, index, id, name, url, location);
   }
 
   onDragEnter(event: any, arr: Array<{}>, index: number, name: string) {
     this.dragDropService.dragEnter(event, arr, index, name);
   }
 
-  onDragEnd(arr: Array<{ id: string; name: string; url: string }>) {
-    this.dragDropService.dragEnd(arr);
-  }
-
-  logging() {
-    console.log(this.repos.items);
+  onDragEnd(
+    arr: Array<{ id: string; name: string; url: string; location: string }>
+  ) {
+    const updatedRepos = this.dragDropService.dragEnd(arr);
+    if (updatedRepos) {
+      this.repos.items = updatedRepos;
+    }
   }
 }

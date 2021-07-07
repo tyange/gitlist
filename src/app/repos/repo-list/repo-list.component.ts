@@ -9,7 +9,9 @@ import { DragDropService } from 'src/app/shared/drag-drop.service';
 })
 export class RepoListComponent {
   draggingInNewRepos: boolean = false;
-  newRepos: Array<{ id: string; name: string; url: string }> = [];
+  location: string = 'new-repos';
+  newRepos: Array<{ id: string; name: string; url: string; location: string }> =
+    [];
 
   constructor(public dragDropService: DragDropService) {}
 
@@ -19,10 +21,16 @@ export class RepoListComponent {
 
   onDivDragOver(event: any) {
     event.preventDefault();
+    const draggingRepo = this.dragDropService.getDraggingRepo();
+    if (draggingRepo.location === this.location) {
+      this.draggingInNewRepos = true;
+    } else if (draggingRepo.location !== this.location) {
+      this.draggingInNewRepos = false;
+    }
   }
 
-  onDrop(arr: Array<{}>) {
-    this.dragDropService.dragDrop(arr);
+  onDrop(arr: Array<{}>, location: string) {
+    this.dragDropService.dragDrop(arr, location);
   }
 
   onDragStart(
@@ -30,10 +38,10 @@ export class RepoListComponent {
     index: number,
     id: string,
     name: string,
-    url: string
+    url: string,
+    location: string
   ) {
-    this.draggingInNewRepos = true;
-    this.dragDropService.dragStart(event, index, id, name, url);
+    this.dragDropService.dragStart(event, index, id, name, url, location);
   }
 
   onDragEnter(event: any, arr: Array<{}>, index: number, name: string) {
@@ -41,8 +49,17 @@ export class RepoListComponent {
     this.dragDropService.dragEnter(event, arr, index, name);
   }
 
-  onDragEnd(arr: Array<{ id: string; name: string; url: string }>) {
-    this.dragDropService.dragEnd(arr);
-    this.draggingInNewRepos = false;
+  onDragEnd(
+    arr: Array<{ id: string; name: string; url: string; location: string }>
+  ) {
+    const updatedRepos = this.dragDropService.dragEnd(arr);
+    if (updatedRepos) {
+      this.newRepos = updatedRepos;
+    }
+  }
+
+  logging() {
+    // console.log(this.dragDropService.getDropedState());
+    console.log(this.newRepos);
   }
 }

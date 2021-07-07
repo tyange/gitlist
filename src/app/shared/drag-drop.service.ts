@@ -1,3 +1,4 @@
+import { stringify } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
@@ -8,10 +9,11 @@ export class DragDropService {
     index: null,
     name: '',
   };
-  draggingRepo: { id: any; name: string; url: string } = {
+  draggingRepo: { id: any; name: string; url: string; location: string } = {
     id: null,
     name: '',
     url: '',
+    location: '',
   };
   droped: boolean = false;
 
@@ -20,12 +22,13 @@ export class DragDropService {
     index: number,
     repoId: string,
     name: string,
-    url: string
+    url: string,
+    location: string
   ) {
     this.dragging = true;
     this.draggingNode = event.target;
     this.draggingItem = { index, name };
-    this.draggingRepo = { id: repoId, name, url };
+    this.draggingRepo = { id: repoId, name, url, location };
     setTimeout(() => {
       this.dragging = true;
     }, 0);
@@ -45,21 +48,24 @@ export class DragDropService {
     return;
   }
 
-  dragDrop(arr: Array<{}>) {
-    const draggingRepo = this.getDraggingRepo();
-    arr.splice(arr.length, 0, draggingRepo);
+  dragDrop(arr: Array<{}>, location: string) {
     this.dropedInOtherList();
+    const draggingRepo = this.getDraggingRepo();
+    draggingRepo.location = location;
+    arr.splice(arr.length, 0, draggingRepo);
   }
 
-  dragEnd(arr: Array<{ id: string; name: string; url: string }>) {
-    const droped = this.getDropedState();
-    if (droped === true) {
-      const draggingItem = this.getDraggingRepo();
-      const currentRepos = arr.filter((repo) => repo.id !== draggingItem.id);
-      return currentRepos;
+  dragEnd(
+    arr: Array<{ id: string; name: string; url: string; location: string }>
+  ) {
+    const draggingItem = this.getDraggingRepo();
+    const isDroped = this.getDropedState();
+    let currentRepos;
+    if (isDroped) {
+      currentRepos = arr.filter((repo) => repo.id !== draggingItem.id);
     }
     this.draggingInitialize();
-    return;
+    return currentRepos;
   }
 
   getDraggingItem() {
@@ -93,6 +99,7 @@ export class DragDropService {
       id: null,
       name: '',
       url: '',
+      location: '',
     };
   }
 }
