@@ -12,6 +12,7 @@
 .repository {
   width: 90%;
   height: 50px;
+  background-color: aliceblue;
   border: 1px solid #ccc;
   display: flex;
   align-items: center;
@@ -20,6 +21,11 @@
 
 .repository:not(:last-child) {
   margin-bottom: 10px;
+}
+
+.dragging-repository {
+  color: #444;
+  background-color: #444;
 }
 
 .dragging-item {

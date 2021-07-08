@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Octokit } from '@octokit/core';
-// import { ReposService } from './repos.service';
 import { DragDropService } from '../shared/drag-drop.service';
 
 @Component({
@@ -10,6 +9,7 @@ import { DragDropService } from '../shared/drag-drop.service';
   styleUrls: ['./repos.component.css'],
 })
 export class ReposComponent implements OnInit {
+  dragging: boolean = false;
   draggingInRepos: boolean = false;
   location: string = 'repos';
   repos: {
@@ -71,12 +71,20 @@ export class ReposComponent implements OnInit {
   onDragStart(
     event: any,
     index: number,
-    id: string,
-    name: string,
-    url: string,
-    location: string
+    repo: { id: string; name: string; url: string; location: string }
   ) {
-    this.dragDropService.dragStart(event, index, id, name, url, location);
+    this.dragDropService.dragStart(event, index, repo);
+    setTimeout(() => {
+      this.dragging = true;
+    }, 0);
+  }
+
+  draggingStyling(id: string, name: string) {
+    const currentDraggingItem = this.dragDropService.getDraggingRepo();
+    if (currentDraggingItem.id === id && currentDraggingItem.name === name) {
+      return true;
+    }
+    return false;
   }
 
   onDragEnter(event: any, arr: Array<{}>, index: number, name: string) {
@@ -90,5 +98,6 @@ export class ReposComponent implements OnInit {
     if (updatedRepos) {
       this.repos.items = updatedRepos;
     }
+    this.dragging = false;
   }
 }

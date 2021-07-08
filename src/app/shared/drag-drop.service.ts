@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class DragDropService {
-  dragging: boolean = false;
   draggingNode: any;
   draggingItem: { index: any; name: string } = {
     index: null,
@@ -20,18 +19,16 @@ export class DragDropService {
   dragStart(
     event: any,
     index: number,
-    repoId: string,
-    name: string,
-    url: string,
-    location: string
+    repo: { id: string; name: string; url: string; location: string }
   ) {
-    this.dragging = true;
     this.draggingNode = event.target;
-    this.draggingItem = { index, name };
-    this.draggingRepo = { id: repoId, name, url, location };
-    setTimeout(() => {
-      this.dragging = true;
-    }, 0);
+    this.draggingItem = { index, name: repo.name };
+    this.draggingRepo = {
+      id: repo.id,
+      name: repo.name,
+      url: repo.url,
+      location: repo.location,
+    };
   }
 
   dragEnter(event: any, arr: Array<{}>, index: number, name: string) {

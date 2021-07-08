@@ -12,16 +12,12 @@
     <li
       *ngFor="let newRepo of newRepos; index as i"
       draggable="true"
-      (dragstart)="
-        onDragStart(
-          $event,
-          i,
-          newRepo.id,
-          newRepo.name,
-          newRepo.url,
-          newRepo.location
-        )
-      "
+      class="repository"
+      [ngClass]="{
+        'dragging-repository':
+          dragging && draggingStyling(newRepo.id, newRepo.name)
+      }"
+      (dragstart)="onDragStart($event, i, newRepo)"
       (dragenter)="
         draggingInNewRepos && onDragEnter($event, newRepos, i, newRepo.name)
       "

@@ -8,6 +8,7 @@ import { DragDropService } from 'src/app/shared/drag-drop.service';
   styleUrls: ['./repo-list.component.css'],
 })
 export class RepoListComponent {
+  dragging: boolean = false;
   draggingInNewRepos: boolean = false;
   location: string = 'new-repos';
   newRepos: Array<{ id: string; name: string; url: string; location: string }> =
@@ -36,12 +37,20 @@ export class RepoListComponent {
   onDragStart(
     event: any,
     index: number,
-    id: string,
-    name: string,
-    url: string,
-    location: string
+    repo: { id: string; name: string; url: string; location: string }
   ) {
-    this.dragDropService.dragStart(event, index, id, name, url, location);
+    this.dragDropService.dragStart(event, index, repo);
+    setTimeout(() => {
+      this.dragging = true;
+    }, 0);
+  }
+
+  draggingStyling(id: string, name: string) {
+    const currentDraggingItem = this.dragDropService.getDraggingRepo();
+    if (currentDraggingItem.id === id && currentDraggingItem.name === name) {
+      return true;
+    }
+    return false;
   }
 
   onDragEnter(event: any, arr: Array<{}>, index: number, name: string) {
@@ -56,6 +65,7 @@ export class RepoListComponent {
     if (updatedRepos) {
       this.newRepos = updatedRepos;
     }
+    this.dragging = false;
   }
 
   logging() {
