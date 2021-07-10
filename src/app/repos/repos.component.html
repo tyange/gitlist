@@ -2,10 +2,13 @@
   <app-repo-list></app-repo-list>
   <div
     class="repos-wrapper"
+    [ngClass]="{ 'dragging-over': draggingOver }"
     (dragenter)="onDivDragEnter($event)"
-    (dragover)="onDivDragOver($event)"
+    (dragover)="!draggingInRepos && onDivDragOver($event)"
+    (dragleave)="!draggingInRepos && onDivDragLeave($event)"
     (drop)="!draggingInRepos && onDrop(repos.items, location)"
   >
+    <div class="dragging-overlay" *ngIf="draggingOver"></div>
     <ul>
       <li
         *ngFor="let repo of repos.items; index as i"

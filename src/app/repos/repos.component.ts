@@ -10,6 +10,7 @@ import { DragDropService } from '../shared/drag-drop.service';
 })
 export class ReposComponent implements OnInit {
   dragging: boolean = false;
+  draggingOver: boolean = false;
   draggingInRepos: boolean = false;
   location: string = 'repos';
   repos: {
@@ -56,6 +57,7 @@ export class ReposComponent implements OnInit {
 
   onDivDragOver(event: any) {
     event.preventDefault();
+    this.draggingOver = true;
     const draggingRepo = this.dragDropService.getDraggingRepo();
     if (draggingRepo.location === this.location) {
       this.draggingInRepos = true;
@@ -64,7 +66,13 @@ export class ReposComponent implements OnInit {
     }
   }
 
+  onDivDragLeave(event: any) {
+    event.preventDefault();
+    this.draggingOver = false;
+  }
+
   onDrop(arr: Array<{}>, location: string) {
+    this.draggingOver = false;
     this.dragDropService.dragDrop(arr, location);
   }
 
@@ -73,6 +81,7 @@ export class ReposComponent implements OnInit {
     index: number,
     repo: { id: string; name: string; url: string; location: string }
   ) {
+    this.draggingInRepos = true;
     this.dragDropService.dragStart(event, index, repo);
     setTimeout(() => {
       this.dragging = true;
@@ -98,6 +107,7 @@ export class ReposComponent implements OnInit {
     if (updatedRepos) {
       this.repos.items = updatedRepos;
     }
+    this.draggingInRepos = false;
     this.dragging = false;
   }
 }

@@ -3,11 +3,13 @@
 </div>
 <div
   class="repo-list"
+  [ngClass]="{ 'dragging-over': draggingOver }"
   (dragenter)="onDivDragEnter($event)"
-  (dragover)="onDivDragOver($event)"
+  (dragover)="!draggingInNewRepos && onDivDragOver($event)"
+  (dragleave)="!draggingInNewRepos && onDivDragLeave($event)"
   (drop)="!draggingInNewRepos && onDrop(newRepos, location)"
 >
-  <button (click)="logging()">logging</button>
+  <div class="dragging-overlay" *ngIf="draggingOver"></div>
   <ul>
     <li
       *ngFor="let newRepo of newRepos; index as i"
