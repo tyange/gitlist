@@ -1,4 +1,3 @@
-import { stringify } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
@@ -35,6 +34,7 @@ export class DragDropService {
     event.preventDefault();
     const draggingItem = this.getDraggingItem();
     const draggingNode = this.getDraggingNode();
+    console.log(draggingNode, event.target);
     if (event.target !== draggingNode) {
       let newRepos = arr;
       const currentRepo = newRepos.splice(draggingItem.index, 1)[0];

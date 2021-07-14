@@ -1,0 +1,21 @@
+<div
+  class="repo-container"
+  (dragenter)="!draggingInList && dragEnterOnList($event)"
+  (dragover)="!draggingInList && dragOverOnList($event)"
+  (dragleave)="!draggingInList && dragLeaveOnList($event)"
+  (drop)="!draggingInList && dropOnList('korea')"
+>
+  <h3>{{ repos.container }}</h3>
+  <button>logging</button>
+  <ul>
+    <li
+      *ngFor="let repo of repos.items; index as i"
+      draggable="true"
+      (dragstart)="dragStart($event, i, repo)"
+      (dragenter)="draggingInList && dragEnterInList($event, i)"
+      (dragend)="dragEnd()"
+    >
+      <app-repo [repo]="repo" [repoIndex]="i"></app-repo>
+    </li>
+  </ul>
+</div>

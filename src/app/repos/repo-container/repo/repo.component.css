@@ -1,0 +1,10 @@
+/* :host {
+  display: block;
+  border: 1px solid #ccc;
+  width: 80%;
+  height: 30px;
+}
+
+:host:not(:last-child) {
+  margin-bottom: 20px;
+} */

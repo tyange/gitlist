@@ -14,10 +14,10 @@ export class ReposComponent implements OnInit {
   draggingInRepos: boolean = false;
   location: string = 'repos';
   repos: {
-    drawer: string;
+    container: string;
     items: Array<{ id: string; name: string; url: string; location: string }>;
   } = {
-    drawer: 'repos',
+    container: 'repos',
     items: [],
   };
 

@@ -1,0 +1,17 @@
+<div class="dropzone-wrapper">
+  <span>making new list!</span>
+  <div appDropInList class="dropzone"></div>
+</div>
+<div class="test-list-wrapper">
+  <div class="dragging-overlay"></div>
+  <ul>
+    <li
+      *ngFor="let item of testArr; index as i"
+      draggable="true"
+      appDragInList
+      class="test-item"
+    >
+      <span>{{ item.name }}</span>
+    </li>
+  </ul>
+</div>

@@ -1,6 +1,6 @@
 <div class="container repos-container">
   <app-repo-list></app-repo-list>
-  <div
+  <!-- <div
     class="repos-wrapper"
     [ngClass]="{ 'dragging-over': draggingOver }"
     (dragenter)="onDivDragEnter($event)"
@@ -28,5 +28,7 @@
         </span>
       </li>
     </ul>
-  </div>
+  </div> -->
+  <app-repo-container [repos]="repos"></app-repo-container>
+  <app-repo-container [repos]="repos"></app-repo-container>
 </div>

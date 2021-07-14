@@ -1,0 +1,17 @@
+.repo-container {
+  width: 500px;
+  height: 300px;
+  border: 1px solid red;
+  overflow: auto;
+}
+
+.repo-container ul li {
+  display: block;
+  border: 1px solid #ccc;
+  width: 80%;
+  height: 30px;
+}
+
+.repo-container ul li:not(:last-child) {
+  margin-bottom: 20px;
+}
