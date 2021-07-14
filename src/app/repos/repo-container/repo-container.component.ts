@@ -112,15 +112,4 @@ export class RepoContainerComponent {
   onDragInList(draggingState: boolean) {
     this.draggingInList = draggingState;
   }
-
-  onUpdateItems(
-    arr: Array<{
-      id: string;
-      name: string;
-      url: string;
-      location: string;
-    }>
-  ) {
-    console.log(arr);
-  }
 }
