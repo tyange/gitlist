@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
-export class DropEventService {
+export class DragDropService {
   draggingRepo: { id: string; name: string; url: string; location: string } = {
     id: '',
     name: '',

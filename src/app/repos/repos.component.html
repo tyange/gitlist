@@ -1,39 +1,8 @@
 <div class="container repos-container">
-  <!-- <app-repo-list></app-repo-list> -->
-  <!-- <div
-    class="repos-wrapper"
-    [ngClass]="{ 'dragging-over': draggingOver }"
-    (dragenter)="onDivDragEnter($event)"
-    (dragover)="!draggingInRepos && onDivDragOver($event)"
-    (dragleave)="!draggingInRepos && onDivDragLeave($event)"
-    (drop)="!draggingInRepos && onDrop(repos.items, location)"
-  >
-    <div class="dragging-overlay" *ngIf="draggingOver"></div>
-    <ul>
-      <li
-        *ngFor="let repo of repos.items; index as i"
-        class="repository"
-        [ngClass]="{
-          'dragging-repository': dragging && draggingStyling(repo.id, repo.name)
-        }"
-        draggable="true"
-        (dragstart)="onDragStart($event, i, repo)"
-        (dragenter)="
-          draggingInRepos && onDragEnter($event, repos.items, i, repo.name)
-        "
-        (dragend)="draggingInRepos && onDragEnd(repos.items)"
-      >
-        <span>
-          {{ repo.name }}
-        </span>
-      </li>
-    </ul>
-  </div> -->
   <div class="test-containers">
-    <app-repo-container
-      *ngFor="let container of testContainer"
-      [repos]="container"
-    ></app-repo-container>
+    <app-repo-list *ngFor="let list of repoLists" [list]="list"></app-repo-list>
   </div>
-  <app-repo-container [repos]="repos"></app-repo-container>
+  <div>
+    <app-repo-list [list]="allRepos"></app-repo-list>
+  </div>
 </div>
