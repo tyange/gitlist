@@ -13,6 +13,7 @@ export class ReposComponent implements OnInit {
   draggingOver: boolean = false;
   draggingInRepos: boolean = false;
   location: string = 'repos';
+
   repos: {
     container: string;
     items: Array<{ id: string; name: string; url: string; location: string }>;
@@ -20,6 +21,20 @@ export class ReposComponent implements OnInit {
     container: 'repos',
     items: [],
   };
+
+  testContainer: Array<{
+    container: string;
+    items: Array<{ id: string; name: string; url: string; location: string }>;
+  }> = [
+    {
+      container: 'test',
+      items: [
+        { id: '143', name: '1', url: 'test.com', location: 'test' },
+        { id: '122', name: '2', url: 'test.com', location: 'test' },
+        { id: '33', name: '3', url: 'test.com', location: 'test' },
+      ],
+    },
+  ];
 
   octokit = new Octokit();
 

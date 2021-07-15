@@ -1,15 +1,19 @@
 <div
   class="repo-container"
-  (dragenter)="!draggingInList && dragEnterOnList($event)"
+  [ngClass]="{ 'dragging-over-container': draggingOver }"
+  (dragenter)="dragEnterOnList($event)"
   (dragover)="!draggingInList && dragOverOnList($event)"
   (dragleave)="!draggingInList && dragLeaveOnList($event)"
-  (drop)="!draggingInList && dropOnList('korea')"
+  (drop)="!draggingInList && dropOnList($event)"
 >
   <h3>{{ repos.container }}</h3>
-  <button>logging</button>
+  <div class="dragging-overlay" *ngIf="draggingOver"></div>
   <ul>
     <li
       *ngFor="let repo of repos.items; index as i"
+      [ngClass]="{
+        'dragging-item': draggingInList && draggingStyling(repo.id)
+      }"
       draggable="true"
       (dragstart)="dragStart($event, i, repo)"
       (dragenter)="draggingInList && dragEnterInList($event, i)"

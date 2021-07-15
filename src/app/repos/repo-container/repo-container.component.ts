@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DropEventService } from 'src/app/shared/drag-drop/drop-event.service';
 
 @Component({
   selector: 'app-repo-container',
@@ -24,37 +25,32 @@ export class RepoContainerComponent {
   draggingNode: any;
   draggingItemIndex: any;
 
+  constructor(private dropEventService: DropEventService) {}
+
   dragStart(
-    event: any,
+    event: DragEvent,
     index: number,
     repo: { id: string; name: string; url: string; location: string }
   ) {
-    console.log('drag-start');
     this.draggingInList = true;
     this.draggingNode = event.target;
+    this.dropEventService.setDraggingRepo(repo);
     this.draggingItemIndex = index;
-    // this.draggingInRepos = true;
-    // this.dragDropService.dragStart(event, index, repo);
-    // setTimeout(() => {
-    //   this.dragging = true;
-    // }, 0);
   }
 
-  draggingStyling(id: string, name: string) {
-    // const currentDraggingItem = this.dragDropService.getDraggingRepo();
-    // if (currentDraggingItem.id === id && currentDraggingItem.name === name) {
-    //   return true;
-    // }
-    // return false;
+  draggingStyling(id: string) {
+    const currentDraggingItem = this.dropEventService.getDraggingRepo();
+    if (currentDraggingItem.id === id) {
+      return true;
+    }
+    return false;
   }
 
   dragEnterInList(event: DragEvent, index: number) {
     event.preventDefault();
-    console.log('drag-enter-in-list');
     const draggingItemIndex = this.draggingItemIndex;
     const draggingNode = this.draggingNode;
     if (event.target !== draggingNode) {
-      console.log('2');
       const newItems = this.repos.items;
       const currentItem = newItems.splice(draggingItemIndex, 1)[0];
       newItems.splice(index, 0, currentItem);
@@ -63,35 +59,19 @@ export class RepoContainerComponent {
     }
   }
 
-  dragEnd() {
-    this.draggingInList = false;
-    // const updatedRepos = this.dragDropService.dragEnd(arr);
-    // if (updatedRepos) {
-    //   this.repos.items = updatedRepos;
-    // }
-    // this.draggingInRepos = false;
-    // this.dragging = false;
-  }
-
   dragEnterOnList(event: DragEvent) {
     event.preventDefault();
-    event.stopPropagation();
-
-    console.log('drag-enter-on-list');
   }
 
   dragOverOnList(event: DragEvent) {
     event.preventDefault();
-    event.stopPropagation();
 
-    this.draggingOver = true;
-    console.log('drag-over-on-list');
-    // const draggingRepo = this.dragDropService.getDraggingRepo();
-    // if (draggingRepo.location === this.location) {
-    //   this.draggingInRepos = true;
-    // } else if (draggingRepo.location !== this.location) {
-    //   this.draggingInRepos = false;
-    // }
+    const draggingRepo = this.dropEventService.getDraggingRepo();
+    if (draggingRepo.location === this.repos.container) {
+      this.draggingOver = false;
+    } else if (draggingRepo.location !== this.repos.container) {
+      this.draggingOver = true;
+    }
   }
 
   dragLeaveOnList(event: DragEvent) {
@@ -102,14 +82,33 @@ export class RepoContainerComponent {
     console.log('drag-leave-on-list');
   }
 
-  dropOnList(location: string) {
+  dropOnList(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
     this.draggingOver = false;
     this.draggingInList = false;
-    // this.dragDropService.dragDrop(arr, location);
-    console.log('droped', location);
+    const dropedRepo = this.dropEventService.getDraggingRepo();
+    if (dropedRepo.location !== this.repos.container) {
+      this.dropEventService.dropedInOtherList();
+      const newItems = this.repos.items;
+      const updatedRepo = { ...dropedRepo, location: this.repos.container };
+      newItems.splice(newItems.length, 0, updatedRepo);
+      this.repos.items = newItems;
+    }
   }
 
-  onDragInList(draggingState: boolean) {
-    this.draggingInList = draggingState;
+  dragEnd() {
+    this.draggingInList = false;
+    this.draggingOver = false;
+    this.draggingNode = null;
+    const draggingRepo = this.dropEventService.getDraggingRepo();
+    const isDroped = this.dropEventService.getDropedState();
+    const currentItems = this.repos.items;
+    let updatedItems;
+    if (isDroped) {
+      updatedItems = currentItems.filter((repo) => repo.id !== draggingRepo.id);
+      this.repos.items = updatedItems;
+    }
+    this.dropEventService.dragDropSvcInit();
   }
 }

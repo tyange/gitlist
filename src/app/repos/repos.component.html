@@ -1,5 +1,5 @@
 <div class="container repos-container">
-  <app-repo-list></app-repo-list>
+  <!-- <app-repo-list></app-repo-list> -->
   <!-- <div
     class="repos-wrapper"
     [ngClass]="{ 'dragging-over': draggingOver }"
@@ -29,6 +29,11 @@
       </li>
     </ul>
   </div> -->
-  <app-repo-container [repos]="repos"></app-repo-container>
+  <div class="test-containers">
+    <app-repo-container
+      *ngFor="let container of testContainer"
+      [repos]="container"
+    ></app-repo-container>
+  </div>
   <app-repo-container [repos]="repos"></app-repo-container>
 </div>
