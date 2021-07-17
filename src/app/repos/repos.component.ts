@@ -33,6 +33,12 @@ export class ReposComponent implements OnInit {
         { id: '143', name: '1', url: 'test.com', location: 'test' },
         { id: '122', name: '2', url: 'test.com', location: 'test' },
         { id: '33', name: '3', url: 'test.com', location: 'test' },
+        {
+          id: '44',
+          name: '안녕하세요',
+          url: 'test.com',
+          location: 'test',
+        },
       ],
     },
   ];

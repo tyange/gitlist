@@ -10,6 +10,7 @@
   border: 1px solid #ccc;
   width: 80%;
   height: 30px;
+  padding: 10px;
 }
 
 .repo-container ul li:not(:last-child) {
