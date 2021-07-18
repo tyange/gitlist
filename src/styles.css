@@ -1,63 +1,16 @@
 /* font setup */
-
-@font-face {
-  font-family: NotoSansKR;
-  src: url("./assets/fonts/NotoSans/NotoSans-Regular.woff") format("woff");
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: NotoSansKR;
-  src: url("./assets/fonts/NotoSans/NotoSans-Bold.woff") format("woff");
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: NotoSansKR;
-  src: url("./assets/fonts/NotoSans/NotoSans-Light.woff") format("woff");
-  font-weight: 300;
-}
-
-@font-face {
-  font-family: NotoSansKR;
-  src: url("./assets/fonts/NotoSans/NotoSans-Black.woff") format("woff");
-  font-weight: 900;
-}
-
-@font-face {
-  font-family: NotoSansKR;
-  src: url("./assets/fonts/Montserrat/Montserrat-Regular.woff") format("woff");
-  unicode-range: U+0041-005A, U+0061-007A, U+0030-0039;
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: NotoSansKR;
-  src: url("./assets/fonts/Montserrat/Montserrat-Bold.woff") format("ttf");
-  unicode-range: U+0041-005A, U+0061-007A, U+0030-0039;
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: NotoSansKR;
-  src: url("./assets/fonts/Montserrat/Montserrat-Black.woff") format("ttf");
-  unicode-range: U+0041-005A, U+0061-007A, U+0030-0039;
-  font-weight: 900;
-}
-
-@font-face {
-  font-family: NotoSansKR;
-  src: url("./assets/fonts/Montserrat/Montserrat-Light.woff") format("ttf");
-  unicode-range: U+0041-005A, U+0061-007A, U+0030-0039;
-  font-weight: 300;
-}
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;700;900&display=swap");
 
 /* global style */
+
+:root {
+  --main-bg-color: #ffe8c2;
+}
 
 body {
   margin: 0;
   overflow: auto;
-  background-color: #333;
+  background-color: var(--main-bg-color);
 }
 
 ul li {
