@@ -26,28 +26,28 @@
 
 @font-face {
   font-family: NotoSansKR;
-  src: url("./assets/fonts/OpenSans/OpenSans-Regular.woff") format("woff");
+  src: url("./assets/fonts/Montserrat/Montserrat-Regular.woff") format("woff");
   unicode-range: U+0041-005A, U+0061-007A, U+0030-0039;
   font-weight: normal;
 }
 
 @font-face {
   font-family: NotoSansKR;
-  src: url("./assets/fonts/OpenSans/OpenSans-Bold.woff") format("ttf");
+  src: url("./assets/fonts/Montserrat/Montserrat-Bold.woff") format("ttf");
   unicode-range: U+0041-005A, U+0061-007A, U+0030-0039;
   font-weight: bold;
 }
 
 @font-face {
   font-family: NotoSansKR;
-  src: url("./assets/fonts/OpenSans/OpenSans-ExtraBold.woff") format("ttf");
+  src: url("./assets/fonts/Montserrat/Montserrat-Black.woff") format("ttf");
   unicode-range: U+0041-005A, U+0061-007A, U+0030-0039;
   font-weight: 900;
 }
 
 @font-face {
   font-family: NotoSansKR;
-  src: url("./assets/fonts/OpenSans/OpenSans-Light.woff") format("ttf");
+  src: url("./assets/fonts/Montserrat/Montserrat-Light.woff") format("ttf");
   unicode-range: U+0041-005A, U+0061-007A, U+0030-0039;
   font-weight: 300;
 }
