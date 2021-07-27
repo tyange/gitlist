@@ -1,15 +1,22 @@
 /* font setup */
-@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Noto+Serif+KR:wght@300;400;700;900&display=swap");
+
+/* fontawesome */
+@import url("../node_modules//@fortawesome//fontawesome-free/css/all.css");
 
 /* global style */
 
 :root {
-  --main-bg-color: #ffe8c2;
+  --main-bg-color: #f0e2e7;
+  --main-header-bg-color: #caf0f8;
+  --main-font-color: #001e27;
 }
 
 body {
+  position: relative;
   margin: 0;
-  overflow: auto;
+  padding: 0;
+  overflow: hidden;
   background-color: var(--main-bg-color);
 }
 
