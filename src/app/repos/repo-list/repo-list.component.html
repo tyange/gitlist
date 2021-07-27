@@ -6,9 +6,12 @@
   (dragleave)="!draggingInList && dragLeaveOnList($event)"
   (drop)="!draggingInList && dropOnList($event)"
 >
-  <h3>{{ list.listName }}</h3>
-  <div class="dragging-overlay" *ngIf="draggingOver"></div>
-  <ul>
+  <div class="list-name-tag">
+    <div class="dragging-overlay" *ngIf="draggingOver"></div>
+    <h3>{{ list.listName }}</h3>
+  </div>
+  <ul [ngClass]="{ 'dragging-over-list': draggingOver }">
+    <div class="dragging-overlay" *ngIf="draggingOver"></div>
     <li
       *ngFor="let repo of list.items; index as i"
       [ngClass]="{
